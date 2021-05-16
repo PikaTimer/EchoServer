@@ -43,41 +43,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	} else if (array_key_exists('rename_location', $command)){
 	
 		$insert = $conn->prepare("UPDATE  readers set location=:location  " .
-						"where mac = :mac" . 
-						"VALUES (:mac,:location) " ) ;
+						"where mac = :mac" ) ;
 
 		header('Content-Type: text/plain; charset=utf-8');  
 
 		// bind the variables
 		$mac = str_replace(":",'',$command['mac']); 
-		$location = $command['location'];
+		$location = $command['rename_location'];
 
 		$insert->bindParam(":mac", $mac, PDO::PARAM_STR);
 		$insert->bindParam(":location", $location, PDO::PARAM_STR);
 	
 		$insert->execute();
 		
-		echo "Renamed Location for " . $mac . " Location: " . $command . "\n\n";
+		echo "Renamed Location for " . $mac . " Location: " . $location . "\n\n";
 		
 		exit;
 	} else if (array_key_exists('rename_reader', $command)){
 	
 		$insert = $conn->prepare("UPDATE  readers set name=:name  " .
-						"where mac = :mac" . 
-						"VALUES (:mac,:name) " ) ;
+						"where mac = :mac" ) ;
 
 		header('Content-Type: text/plain; charset=utf-8');  
 
 		// bind the variables
 		$mac = str_replace(":",'',$command['mac']); 
-		$name = $command['name'];
+		$name = $command['rename_reader'];
 
 		$insert->bindParam(":mac", $mac, PDO::PARAM_STR);
 		$insert->bindParam(":name", $name, PDO::PARAM_STR);
 	
 		$insert->execute();
 		
-		echo "Renamed Reader " . $mac . " Name: " . $command . "\n\n";
+		echo "Renamed Reader " . $mac . " Name: " . $name. "\n\n";
 		
 		exit;
 	}
