@@ -1,0 +1,15 @@
+
+RewriteEngine on
+# map things like /command/<mac> to /commands.php?mac=<mac>
+
+# Commands
+RewriteRule ^command/([a-fA-F0-9]+)/? commands.php?mac=$1 [NC,L]
+RewriteRule ^command/ commands.php [NC,L]
+
+# Status
+RewriteRule ^status/([a-fA-F0-9]+)/? status.php?mac=$1 [NC,L]
+RewriteRule ^status/ status.php [NC,L]
+
+# Timing data
+RewriteRule ^data/(.*) data.php?params=$1 [L,NC,NE]
+RewriteRule ^data/ data.php [NC,L]
