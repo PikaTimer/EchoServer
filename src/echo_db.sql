@@ -42,7 +42,7 @@ DROP TABLE IF EXISTS `readers`;
 CREATE TABLE IF NOT EXISTS `readers` (
   `mac` varchar(6) NOT NULL,
   `name` varchar(20) NOT NULL DEFAULT "New Reader",
-  `location` varchar(20) NOT NULL DEFAULT "Not Set",
+  `location` varchar(20) NOT NULL DEFAULT "Location Not Set",
   `last_update` timestamp NOT NULL DEFAULT current_timestamp(),
   `reader_status` tinyint(1) NOT NULL,
   `battery_status` int(3) NOT NULL,
