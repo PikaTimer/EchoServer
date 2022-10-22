@@ -53,8 +53,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			$chip = $chip_read['chip'];
 			$reader= $chip_read['reader'];
 			$antenna= $chip_read['port'];
+                        
+                        // fix the case when the millis is missing from the timestamp
+                        if (! strpos($chip_read['timestamp'], ",") !== false) {
+                            $chip_read['timestamp'] = $chip_read['timestamp'] . ".000";
+                        }
+                        
 			list($time,$millis) = explode(".", $chip_read['timestamp']); 
-			$timestamp = strtotime($time);
+                        
+                        $timestamp = strtotime($time);
 			$id = $mac . $logid;
 				
 			$insert->bindParam(":id", $id, PDO::PARAM_STR);
@@ -75,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			$insert->debugDumpParams();
 		}		
 	}
-	echo "Inserted: " . $count . " times \n\n";
+	echo "Uploaded " . $count . " reads\n";
 	exit;
 } else {
   
